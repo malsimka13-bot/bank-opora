@@ -1,0 +1,229 @@
+/* ==========================================================
+   Банк «Опора» — общий файл стилей (учебный проект)
+   Методология: БЭМ (блок__элемент--модификатор)
+   ========================================================== */
+
+/* ---------- 1. Переменные (CSS custom properties) ---------- */
+:root {
+  --navy: #12305a;
+  --navy-dark: #0c2140;
+  --green: #2fb67c;
+  --bg: #f3f5f8;
+  --white: #ffffff;
+  --text: #1b2433;
+  --muted: #5b6678;
+  --line: #d9dee7;
+  --radius: 10px;
+  --container: 1120px;
+  /* clamp(мин, предпочтительное, макс) — плавный отступ без @media */
+  --gap: clamp(16px, 3vw, 32px);
+  --font-head: "Montserrat", Arial, sans-serif;
+  --font-body: "Inter", Arial, sans-serif;
+}
+
+/* ---------- 2. Базовые стили ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.2; color: var(--navy); margin: 0 0 .6em; }
+h1 { font-size: clamp(2rem, 5vw, 3.4rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+h3 { font-size: 1.2rem; }
+p  { margin: 0 0 1em; max-width: 68ch; } /* строка < 80 символов */
+
+a { color: var(--navy); }
+
+/* Видимый фокус для клавиатуры (доступность) */
+:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+
+.container { width: min(100% - 2 * var(--gap), var(--container)); margin-inline: auto; }
+.section { padding-block: clamp(40px, 7vw, 88px); }
+.section--white { background: var(--white); }
+
+/* ---------- 3. Кнопки ---------- */
+.btn {
+  display: inline-block;
+  padding: .8em 1.5em;
+  border: 2px solid var(--green);
+  border-radius: var(--radius);
+  background: var(--green);
+  color: var(--navy-dark);
+  font: 600 1rem var(--font-head);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s, background .15s;
+}
+.btn:hover  { background: #27a06c; transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn--ghost { background: transparent; color: var(--white); border-color: var(--white); }
+.btn--ghost:hover { background: rgba(255, 255, 255, .15); }
+
+/* ---------- 4. Шапка и навигация ---------- */
+.header { background: var(--white); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+.header__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--gap); min-height: 68px; }
+
+.logo { font: 800 1.5rem var(--font-head); color: var(--navy); text-decoration: none; }
+/* Псевдоэлемент: зелёная «опора» перед названием */
+.logo::before {
+  content: ""; display: inline-block; width: 8px; height: 1.1em;
+  background: var(--green); margin-right: .4em; vertical-align: -.15em; border-radius: 2px;
+}
+
+.nav__list { display: flex; gap: clamp(12px, 2vw, 28px); list-style: none; margin: 0; padding: 0; }
+.nav__link { text-decoration: none; color: var(--text); font-weight: 500; padding-block: .3em; position: relative; }
+/* Подчёркивание, растущее при наведении */
+.nav__link::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+  background: var(--green); transition: width .2s;
+}
+.nav__link:hover::after, .nav__link--active::after { width: 100%; }
+
+.burger { display: none; background: none; border: 0; font-size: 1.8rem; color: var(--navy); cursor: pointer; }
+
+/* ---------- 5. Герой (главный экран) ---------- */
+.hero { background: var(--navy); color: var(--white); overflow: hidden; }
+.hero__inner { display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: var(--gap); }
+.hero h1 { color: var(--white); }
+.hero__text { font-size: 1.15rem; color: #d5deec; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1.5em; }
+
+/* Три «опоры» разной высоты — рисуем чистым CSS, без картинок */
+.pillars { display: flex; align-items: flex-end; justify-content: center; gap: 14px; height: 300px; }
+.pillars__bar {
+  width: 56px; background: var(--green); border-radius: 6px 6px 0 0;
+  transform-origin: bottom;
+  animation: grow 1s ease-out both; /* единственная анимация при загрузке */
+}
+.pillars__bar:nth-child(1) { height: 45%;  animation-delay: .1s; opacity: .55; }
+.pillars__bar:nth-child(2) { height: 70%;  animation-delay: .3s; opacity: .8; }
+.pillars__bar:nth-child(3) { height: 100%; animation-delay: .5s; }
+
+@keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+/* ---------- 6. Карточки продуктов ---------- */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--gap); }
+.card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; border-top: 5px solid var(--green); }
+.card__rate { font: 700 2rem var(--font-head); color: var(--navy); margin: 0; }
+.card:hover { box-shadow: 0 8px 24px rgba(18, 48, 90, .12); }
+
+/* ---------- 7. Список преимуществ и цифры ---------- */
+.features { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.features__item { padding-left: 1.6em; position: relative; }
+.features__item::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--gap); margin: 0; }
+/* В HTML сначала термин (dt), на экране сверху значение */
+.stats > div { display: flex; flex-direction: column-reverse; }
+.stats__value { font: 800 2.2rem var(--font-head); color: var(--navy); margin: 0; }
+.stats__label { margin: 0; color: var(--muted); }
+
+/* Текст только для скринридеров */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- 8. Таблицы ---------- */
+.table-wrap { overflow-x: auto; } /* таблица прокручивается внутри, страница — нет */
+.table { width: 100%; border-collapse: collapse; background: var(--white); }
+.table th, .table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); }
+.table thead th { background: var(--navy); color: var(--white); }
+.table tbody tr:nth-child(even) { background: var(--bg); } /* зебра */
+.table tbody tr:hover { background: #e4f5ed; }
+
+/* ---------- 9. Формы и калькулятор ---------- */
+.form { display: grid; gap: 16px; max-width: 520px; }
+.form__field { display: grid; gap: 6px; font-weight: 500; }
+.form__input {
+  padding: .7em .9em; border: 1px solid var(--line); border-radius: var(--radius);
+  font: inherit; background: var(--white);
+}
+.form__input:focus { border-color: var(--navy); }
+.form__input:invalid:not(:placeholder-shown) { border-color: #c0392b; } /* ошибка */
+.form__check { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; font-size: .9rem; }
+.form__msg { min-height: 1.5em; font-weight: 600; color: #1d7a52; margin: 0; }
+
+.calc { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: start; }
+.calc__result { background: var(--navy); color: var(--white); border-radius: var(--radius); padding: 28px; }
+.calc__total { font: 800 clamp(1.8rem, 4vw, 2.6rem) var(--font-head); margin: .2em 0; }
+.calc__result p { color: #d5deec; margin: 0; }
+
+/* ---------- 10. Шаги и FAQ ---------- */
+.steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: 16px; }
+.steps__item { counter-increment: step; padding-left: 56px; position: relative; }
+.steps__item::before {
+  content: counter(step); position: absolute; left: 0; top: 0;
+  width: 40px; height: 40px; border-radius: 50%; background: var(--navy); color: var(--white);
+  display: grid; place-items: center; font: 700 1.1rem var(--font-head);
+}
+
+.faq__item { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 10px; }
+.faq__q { font-weight: 600; cursor: pointer; }
+.faq__item[open] { border-color: var(--green); }
+
+/* ---------- 11. Подвал ---------- */
+.footer { background: var(--navy-dark); color: #c5d0e2; padding-block: 40px; }
+.footer__inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--gap); }
+.footer a { color: #c5d0e2; }
+.footer__list { list-style: none; padding: 0; margin: 0; }
+.footer__small { grid-column: 1 / -1; font-size: .85rem; border-top: 1px solid #2a4469; padding-top: 16px; margin: 0; }
+
+/* ---------- 12. Адаптивность (брейкпоинты 900 / 640 px) ---------- */
+@media (max-width: 900px) {
+  .hero__inner, .calc { grid-template-columns: 1fr; }
+  .pillars { height: 180px; }
+  .footer__inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .burger { display: block; }
+  .nav { display: none; position: absolute; top: 68px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--line); padding: 12px var(--gap); }
+  .nav--open { display: block; } /* класс добавляет script.js */
+  .nav__list { flex-direction: column; }
+  .header__cta { display: none; }
+  .footer__inner { grid-template-columns: 1fr; }
+}
+
+/* Уважаем настройку «уменьшить анимацию» в системе */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ---------- 13. Дополнения: банковская карта (cards.html) ---------- */
+.bankcard {
+  position: relative; aspect-ratio: 1.586; /* пропорции реальной карты */
+  border-radius: 14px; padding: 20px; color: var(--white);
+  background: var(--navy); display: flex; align-items: flex-end;
+  font: 600 1.1rem var(--font-head); transition: transform .25s;
+}
+.bankcard:hover { transform: rotate(-2deg) translateY(-4px); }
+/* Чип карты */
+.bankcard::before {
+  content: ""; position: absolute; top: 22px; left: 20px;
+  width: 44px; height: 32px; border-radius: 6px; background: #e6c97a;
+}
+/* Круг-логотип в углу */
+.bankcard::after {
+  content: ""; position: absolute; top: 20px; right: 20px;
+  width: 30px; height: 30px; border-radius: 50%; background: var(--green);
+}
+.bankcard--green { background: #1d7a52; }
+.bankcard--dark  { background: var(--navy-dark); }
+.bankcard--green::after, .bankcard--dark::after { background: var(--white); }
+.card__media { margin-bottom: 16px; }
+
+/* ---------- 14. Картинки с подписью (адаптивные) ---------- */
+.media { margin: var(--gap) 0; }
+.media img {
+  display: block;
+  width: 100%;        /* тянется по ширине контейнера */
+  height: auto;       /* высота считается по пропорциям из width/height */
+  border-radius: var(--radius);
+}
+.media figcaption { margin-top: 8px; font-size: .9rem; color: var(--muted); }
+.media--narrow { max-width: 800px; } /* для deposit-coins (800 px) */

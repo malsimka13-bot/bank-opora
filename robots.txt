@@ -1,0 +1,4 @@
+# robots.txt: разрешаем индексацию всего сайта и указываем карту сайта
+User-agent: *
+Allow: /
+Sitemap: http://u993784c.beget.tech/sitemap.xml

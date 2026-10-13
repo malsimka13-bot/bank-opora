@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Вклады в банке «Опора» — ставка до 16% годовых, калькулятор дохода</title>
+  <meta name="description" content="Выберите вклад: «Накопительный», «Стабильный», «Максимум». Сравните ставки в таблице и рассчитайте доход на калькуляторе.">
+  <meta name="keywords" content="вклады, ставка по вкладу, калькулятор вклада, накопительный счёт">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113597679', 'ym');
+
+    ym(113597679, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/113597679" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+ <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KY3PJBNXJ1');
+</script>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header__inner">
+    <a class="logo" href="index.html">Опора</a>
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false">☰</button>
+    <nav class="nav" aria-label="Основное меню">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="index.html">Главная</a></li>
+        <li><a class="nav__link nav__link--active" href="deposits.html">Вклады</a></li>
+        <li><a class="nav__link" href="credits.html">Кредиты</a></li>
+        <li><a class="nav__link" href="cards.html">Карты</a></li>
+        <li><a class="nav__link" href="about.html">О банке</a></li>
+        <li><a class="nav__link" href="offices.html">Офисы</a></li>
+        <li><a class="nav__link" href="contacts.html">Контакты</a></li>
+      </ul>
+    </nav>
+    <a class="btn header__cta" href="contacts.html">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <h1>Вклады для любых целей</h1>
+      <p>Выберите срок и сумму, остальное посчитает калькулятор. Проценты начисляются ежемесячно.</p>
+
+      <h2>Сравнение вкладов</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="visually-hidden">Условия вкладов банка «Опора»</caption>
+          <thead>
+            <tr><th scope="col">Вклад</th><th scope="col">Ставка</th><th scope="col">Срок</th><th scope="col">Мин. сумма</th><th scope="col">Пополнение</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Накопительный</td><td>до 12%</td><td>без срока</td><td>1 000 ₽</td><td>да</td></tr>
+            <tr><td>Стабильный</td><td>до 14%</td><td>6–12 мес.</td><td>30 000 ₽</td><td>нет</td></tr>
+            <tr><td>Максимум</td><td>до 16%</td><td>12–36 мес.</td><td>100 000 ₽</td><td>да</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container">
+      <h2>Калькулятор дохода</h2>
+      <div class="calc" id="calc">
+        <div class="form">
+          <label class="form__field">Вклад
+            <select class="form__input" id="deposit">
+              <option value="12">Накопительный, 12%</option>
+              <option value="14" selected>Стабильный, 14%</option>
+              <option value="16">Максимум, 16%</option>
+            </select>
+          </label>
+          <label class="form__field">Сумма, ₽
+            <input class="form__input" id="amount" type="number" min="1000" step="1000" value="100000">
+          </label>
+          <label class="form__field">Срок: <span id="months-out">12</span> мес.
+            <input id="months" type="range" min="1" max="36" value="12">
+          </label>
+        </div>
+        <div class="calc__result" aria-live="polite">
+          <p>Вы получите</p>
+          <p class="calc__total" id="total">0 ₽</p>
+          <p id="income">Доход: 0 ₽</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Как открыть вклад</h2>
+      <figure class="media media--narrow">
+  <img src="images/deposit-coins.webp" alt="Копилка и растущая стопка монет" width="800" height="533" loading="lazy">
+  <figcaption>Доход растёт благодаря капитализации процентов</figcaption>
+      </figure>
+      <ol class="steps">
+        <li class="steps__item">Заполните заявку на сайте или в приложении.</li>
+        <li class="steps__item">Подтвердите личность в офисе или по видеосвязи.</li>
+        <li class="steps__item">Пополните счёт, проценты начнут расти сразу.</li>
+      </ol>
+
+      <h2>Частые вопросы</h2>
+      <details class="faq__item"><summary class="faq__q">Можно ли закрыть вклад досрочно?</summary><p>Да. Проценты пересчитываются по ставке «до востребования».</p></details>
+      <details class="faq__item"><summary class="faq__q">Облагается ли доход налогом?</summary><p>Налог платится с дохода сверх необлагаемого лимита, установленного законом.</p></details>
+      <details class="faq__item"><summary class="faq__q">Застрахован ли вклад?</summary><p>Да, в системе страхования вкладов на сумму до 1,4 млн ₽.</p></details>
+
+      <a class="btn" href="contacts.html">Открыть вклад</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div><strong>Банк «Опора»</strong><p>Финансы без сюрпризов</p></div>
+    <ul class="footer__list">
+      <li><a href="deposits.html">Вклады</a></li>
+      <li><a href="credits.html">Кредиты</a></li>
+      <li><a href="cards.html">Карты</a></li>
+      <li><a href="about.html">О банке</a></li>
+    </ul>
+    <ul class="footer__list">
+      <li><a href="tel:+78000000000">8 800 000-00-00</a></li>
+      <li><a href="offices.html">Офисы и банкоматы</a></li>
+      <li><a href="contacts.html">Контакты</a></li>
+    </ul>
+    <p class="footer__small">Лицензия ЦБ РФ № 0000 (учебный проект, организация вымышленная).</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
